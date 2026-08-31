@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mike & Leanne's 24th Anniversary Mystery</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
   <style>
     :root {
       --navy: #0f172a;
@@ -19,9 +22,7 @@
       --muted: #64748b;
     }
     
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       font-family: 'Montserrat', -apple-system, sans-serif;
@@ -36,8 +37,8 @@
 
     header {
       text-align: center;
-      margin-bottom: 32px;
-      max-width: 550px;
+      margin-bottom: 24px;
+      max-width: 520px;
     }
 
     .anniversary-badge {
@@ -54,8 +55,8 @@
     h1 {
       font-family: 'Cormorant Garamond', serif;
       color: var(--navy);
-      margin: 0 0 12px 0;
-      font-size: 2.3rem;
+      margin: 0 0 8px 0;
+      font-size: 2.2rem;
       font-weight: 700;
       line-height: 1.15;
     }
@@ -65,6 +66,15 @@
       font-size: 1.05rem;
       font-style: italic;
       font-family: 'Cormorant Garamond', serif;
+    }
+
+    .playlist-container {
+      width: 100%;
+      max-width: 520px;
+      margin-bottom: 24px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
     }
 
     .timeline {
@@ -127,6 +137,32 @@
       color: #332616;
     }
 
+    .talk-box {
+      background: #f8fafc;
+      border-top: 2px dashed var(--gold);
+      border-bottom: 2px dashed var(--gold);
+      padding: 16px;
+      margin-top: 16px;
+      border-radius: 8px;
+    }
+
+    .talk-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0 0 6px 0;
+    }
+
+    .talk-question {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #475569;
+      margin: 0;
+      line-height: 1.4;
+    }
+
     .upload-section {
       margin-top: 18px;
       background: var(--cream);
@@ -152,8 +188,19 @@
       transition: transform 0.2s ease;
     }
 
-    .upload-btn:active {
-      transform: scale(0.98);
+    .upload-btn:active { transform: scale(0.98); }
+
+    .map-btn {
+      display: inline-block;
+      margin-top: 12px;
+      background: var(--navy);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.5px;
     }
 
     .locked-content {
@@ -165,23 +212,18 @@
       line-height: 1.5;
     }
 
-    .locked-content p {
-      margin: 8px 0;
-    }
+    .locked-content p { margin: 8px 0; }
 
-    /* Completely Hidden State */
     .card.hidden-stop {
       opacity: 0.4;
       filter: grayscale(1);
       pointer-events: none;
     }
 
-    /* Unlocked Reveal State */
     .card.unlocked .locked-content { display: block; }
     .card.unlocked .upload-section { display: none; }
     .card.unlocked .hint-box { display: none; }
     
-    /* Gallery Styling */
     .gallery-container {
       width: 100%;
       max-width: 520px;
@@ -225,6 +267,19 @@
     <p class="subtitle">Snap a photo at each stop to unlock the mystery of where we are off to next...</p>
   </header>
 
+  <div class="playlist-container">
+    <iframe 
+      style="border-radius:12px" 
+      src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4p1vK8ZGD9A?utm_source=generator" 
+      width="100%" 
+      height="152" 
+      frameBorder="0" 
+      allowfullscreen="" 
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+      loading="lazy">
+    </iframe>
+  </div>
+
   <div class="timeline">
 
     <div class="card unlocked" id="stop0">
@@ -240,6 +295,10 @@
       </div>
       <div class="locked-content">
         <p><strong>🎉 Trip Activated!</strong> Time to head south toward the water...</p>
+        <div class="talk-box">
+          <div class="talk-title">💬 Road Chat Topic:</div>
+          <p class="talk-question">"What is your absolute favorite memory of us from back when we were first dating before kids?"</p>
+        </div>
       </div>
     </div>
 
@@ -259,6 +318,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> Port Stanley Beach & Pier</p>
         <p>Stretch your legs along the boardwalk, watch the boats pass the lighthouse, and grab a cold drink over Lake Erie!</p>
+        <a class="map-btn" href="https://maps.google.com/?q=Port+Stanley+Beach+Ontario" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Road Chat Topic:</div>
+          <p class="talk-question">"Looking back over 24 years, what is your single favorite moment from our wedding day?"</p>
+        </div>
       </div>
     </div>
 
@@ -278,6 +342,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> Port Rowan & Coastal Bluffs</p>
         <p>A scenic shoreline overlook right along Elgin Road 42 as we curve toward Port Dover.</p>
+        <a class="map-btn" href="https://maps.google.com/?q=Port+Rowan+Ontario" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Road Chat Topic:</div>
+          <p class="talk-question">"What was the exact moment you knew I was 'the one' when we were dating?"</p>
+        </div>
       </div>
     </div>
 
@@ -297,6 +366,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> The Dover George (Port Dover)</p>
         <p>Check in, unpack, and relax in our luxury suite before heading out for dinner!</p>
+        <a class="map-btn" href="https://maps.google.com/?q=The+Dover+George+Port+Dover" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Road Chat Topic:</div>
+          <p class="talk-question">"What is your all-time favorite trip or getaway we've taken together over the last 24 years?"</p>
+        </div>
       </div>
     </div>
 
@@ -316,6 +390,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> The Beach House Restaurant</p>
         <p>Relax and enjoy dinner directly overlooking the water as the sun sets over the lake.</p>
+        <a class="map-btn" href="https://maps.google.com/?q=The+Beach+House+Port+Dover" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Evening Chat Topic:</div>
+          <p class="talk-question">"What is your absolute favorite sexy or romantic memory of us?"</p>
+        </div>
       </div>
     </div>
 
@@ -335,6 +414,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> Urban Parisian Patisserie & Woodhouse Gallery</p>
         <p>Enjoy morning pastries followed by a casual fine art stroll down Main Street.</p>
+        <a class="map-btn" href="https://maps.google.com/?q=Urban+Parisian+Port+Dover" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Morning Chat Topic:</div>
+          <p class="talk-question">"What is a hilarious or unforgettable family memory with the kids that still makes you laugh?"</p>
+        </div>
       </div>
     </div>
 
@@ -354,6 +438,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> Long Point Provincial Park Beach</p>
         <p>Take a long shoreline walk before we drive north toward Escarpment country!</p>
+        <a class="map-btn" href="https://maps.google.com/?q=Long+Point+Provincial+Park" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Beach Walk Chat Topic:</div>
+          <p class="talk-question">"If we could plan a dream bucket-list vacation anywhere in the world just for the two of us, where would we go?"</p>
+        </div>
       </div>
     </div>
 
@@ -373,6 +462,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> Tiffany Falls & Sherman Falls (Ancaster)</p>
         <p>Walk the boardwalk trails along the Bruce Trail to see two of the region's famous waterfalls.</p>
+        <a class="map-btn" href="https://maps.google.com/?q=Tiffany+Falls+Conservation+Area" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Forest Walk Chat Topic:</div>
+          <p class="talk-question">"What is something new or exciting you’d love for us to try together in our next chapter?"</p>
+        </div>
       </div>
     </div>
 
@@ -392,6 +486,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> Ancaster Mill</p>
         <p>Celebratory anniversary dining over the waterfall, followed by overnight stay at Courtyard Marriott Hamilton!</p>
+        <a class="map-btn" href="https://maps.google.com/?q=Ancaster+Mill" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Dinner Chat Topic:</div>
+          <p class="talk-question">"What is a secret romantic fantasy or idea you've always thought would be fun for us to try?"</p>
+        </div>
       </div>
     </div>
 
@@ -411,6 +510,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> Belfountain Conservation Area</p>
         <p>Walk across the suspension bridge, view Belfountain Falls, and stroll around the heritage pond.</p>
+        <a class="map-btn" href="https://maps.google.com/?q=Belfountain+Conservation+Area" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Scenic Drive Chat Topic:</div>
+          <p class="talk-question">"What is your favorite quality or habit of mine that you love most after 24 years?"</p>
+        </div>
       </div>
     </div>
 
@@ -430,6 +534,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> Hockley General Store & Bakery</p>
         <p>Grab gourmet sandwiches, artisan coffee, and sweet treats in the heart of Hockley Valley.</p>
+        <a class="map-btn" href="https://maps.google.com/?q=Hockley+General+Store" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Coffee Break Chat Topic:</div>
+          <p class="talk-question">"What is a proud moment from our marriage that made us stronger together?"</p>
+        </div>
       </div>
     </div>
 
@@ -449,6 +558,11 @@
       <div class="locked-content">
         <p><strong>Destination Revealed:</strong> Main Street South, Newmarket</p>
         <p>Enjoy coffee or ice cream along Fairy Lake before our final drive home to Uxbridge!</p>
+        <a class="map-btn" href="https://maps.google.com/?q=Main+Street+South+Newmarket" target="_blank">📍 Open in Google Maps</a>
+        <div class="talk-box">
+          <div class="talk-title">💬 Final Drive Chat Topic:</div>
+          <p class="talk-question">"What are you looking forward to most as we celebrate our 25th Silver Anniversary next year?"</p>
+        </div>
       </div>
     </div>
 
@@ -461,7 +575,6 @@
   </div>
 
   <script>
-    // Real Details to swap upon unlocking
     const stopDetails = {
       stop1: { time: "Sat 3:00 PM", title: "Stop 1: Pier Promenade & Harbour View" },
       stop2: { time: "Sat 4:35 PM", title: "Stop 2: Coastal Clay Bluffs" },
@@ -469,66 +582,4 @@
       stop4: { time: "Sat 7:00 PM", title: "Stop 4: Sunset Waterfront Dinner" },
       stop5: { time: "Sun 9:00 AM", title: "Stop 5: Espresso & Fine Art Stroll" },
       stop6: { time: "Sun 11:30 AM", title: "Stop 6: Wild Beach Dunes Walk" },
-      stop7: { time: "Sun 3:30 PM", title: "Stop 7: Forest Ravine Waterfalls" },
-      stop8: { time: "Sun 7:00 PM", title: "Stop 8: Anniversary Dinner Over the Water" },
-      stop9: { time: "Mon 10:30 AM", title: "Stop 9: Suspension Bridge & Gorge" },
-      stop10: { time: "Mon 12:30 PM", title: "Stop 10: Hockley Valley Bakery Stop" },
-      stop11: { time: "Mon 2:30 PM", title: "Stop 11: Historic Main Street Stroll" }
-    };
-
-    function unlockStop(currentId, nextId, inputElement) {
-      if (inputElement.files && inputElement.files[0]) {
-        const file = inputElement.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-          // 1. Add image to album gallery
-          const gallery = document.getElementById('photo-gallery');
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          gallery.appendChild(img);
-
-          // 2. Mark current card as completed
-          const currentCard = document.getElementById(currentId);
-          currentCard.classList.add('unlocked');
-          const statusIcon = currentCard.querySelector('.status-icon');
-          if (statusIcon) {
-            statusIcon.innerText = '✓ Completed';
-            statusIcon.style.color = 'var(--gold)';
-          }
-
-          // 3. Render uploaded photo inside current card
-          const photoPreview = document.createElement('img');
-          photoPreview.src = e.target.result;
-          photoPreview.style.width = '100%';
-          photoPreview.style.maxHeight = '240px';
-          photoPreview.style.objectFit = 'cover';
-          photoPreview.style.borderRadius = '10px';
-          photoPreview.style.marginTop = '14px';
-          photoPreview.style.border = '1px solid var(--gold-light)';
-          currentCard.querySelector('.locked-content').appendChild(photoPreview);
-
-          // 4. Reveal & activate the NEXT stop card
-          if (nextId && stopDetails[nextId]) {
-            const nextCard = document.getElementById(nextId);
-            nextCard.classList.remove('hidden-stop');
-            
-            // Swap in the real time & title
-            document.getElementById('time-' + nextId).innerText = stopDetails[nextId].time;
-            document.getElementById('title-' + nextId).innerText = stopDetails[nextId].title;
-            
-            const nextStatus = document.getElementById('status-' + nextId);
-            nextStatus.innerText = '✨ Next Destination Hint';
-            nextStatus.style.color = 'var(--gold)';
-            
-            // Scroll smoothly to next card
-            nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        };
-
-        reader.readAsDataURL(file);
-      }
-    }
-  </script>
-</body>
-</html>
+      stop7: { time:
