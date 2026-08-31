@@ -594,62 +594,73 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
   <script>
-    // Real Details & Direct Google Maps Links to swap upon unlocking
+    // Exact Maps & Details for the NEXT Destination to drive to
     const stopDetails = {
       stop1: { 
         time: "Sat 3:00 PM", 
         title: "Stop 1: Pier Promenade & Harbour View",
-        mapUrl: "https://maps.google.com/?q=Port+Stanley+Beach+Ontario"
+        // Map link to drive to Stop 1 (Port Stanley Pier)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Port+Stanley+Beach+and+Pier+Ontario"
       },
       stop2: { 
         time: "Sat 4:35 PM", 
         title: "Stop 2: Coastal Clay Bluffs",
-        mapUrl: "https://maps.google.com/?q=Port+Rowan+Lookout+Ontario"
+        // Map link to drive to Stop 2 (Port Rowan Overlook)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Port+Rowan+Overlook+Ontario"
       },
       stop3: { 
         time: "Sat 5:35 PM", 
         title: "Stop 3: Our Port Dover Retreat",
-        mapUrl: "https://maps.google.com/?q=The+Dover+George+Port+Dover"
+        // Map link to drive to Stop 3 (The Dover George)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=The+Dover+George+Port+Dover+Ontario"
       },
       stop4: { 
         time: "Sat 7:00 PM", 
         title: "Stop 4: Sunset Waterfront Dinner",
-        mapUrl: "https://maps.google.com/?q=The+Beach+House+Port+Dover"
+        // Map link to drive to Stop 4 (The Beach House)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=The+Beach+House+Restaurant+Port+Dover"
       },
       stop5: { 
         time: "Sun 9:00 AM", 
         title: "Stop 5: Espresso & Fine Art Stroll",
-        mapUrl: "https://maps.google.com/?q=Urban+Parisian+Port+Dover"
+        // Map link to drive to Stop 5 (Urban Parisian / Woodhouse Gallery)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Urban+Parisian+Port+Dover"
       },
       stop6: { 
         time: "Sun 11:30 AM", 
         title: "Stop 6: Wild Beach Dunes Walk",
-        mapUrl: "https://maps.google.com/?q=Long+Point+Provincial+Park"
+        // Map link to drive to Stop 6 (Long Point Provincial Park)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Long+Point+Provincial+Park+Beach"
       },
       stop7: { 
         time: "Sun 3:30 PM", 
         title: "Stop 7: Forest Ravine Waterfalls",
-        mapUrl: "https://maps.google.com/?q=Tiffany+Falls+Conservation+Area"
+        // Map link to drive to Stop 7 (Tiffany Falls)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Tiffany+Falls+Conservation+Area+Ancaster"
       },
       stop8: { 
         time: "Sun 7:00 PM", 
         title: "Stop 8: Anniversary Dinner Over the Water",
-        mapUrl: "https://maps.google.com/?q=Ancaster+Mill+Ontario"
+        // Map link to drive to Stop 8 (Ancaster Mill)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Ancaster+Mill+Restaurant"
       },
       stop9: { 
         time: "Mon 10:30 AM", 
         title: "Stop 9: Suspension Bridge & Gorge",
-        mapUrl: "https://maps.google.com/?q=Belfountain+Conservation+Area"
+        // Map link to drive to Stop 9 (Belfountain Conservation Area)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Belfountain+Conservation+Area"
       },
       stop10: { 
         time: "Mon 12:30 PM", 
         title: "Stop 10: Hockley Valley Bakery Stop",
-        mapUrl: "https://maps.google.com/?q=Hockley+General+Store"
+        // Map link to drive to Stop 10 (Hockley General Store)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Hockley+General+Store"
       },
       stop11: { 
         time: "Mon 2:30 PM", 
         title: "Stop 11: Historic Main Street Stroll",
-        mapUrl: "https://maps.google.com/?q=Main+Street+South+Newmarket"
+        // Map link to drive to Stop 11 (Main Street South Newmarket)
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Main+Street+South+Newmarket+Ontario"
       }
     };
 
@@ -659,11 +670,11 @@
         const reader = new FileReader();
 
         reader.onload = function(e) {
-          // 1. Trigger celebratory gold confetti burst
+          // 1. Gold Confetti Burst
           if (typeof confetti === 'function') {
             confetti({
-              particleCount: 80,
-              spread: 60,
+              particleCount: 90,
+              spread: 70,
               origin: { y: 0.6 },
               colors: ['#c5a059', '#0f172a', '#ffffff']
             });
@@ -684,9 +695,8 @@
             statusIcon.style.color = 'var(--gold)';
           }
 
-          // 4. Append image preview and Google Maps button into current card
+          // 4. Append image preview to current card
           const lockedContent = currentCard.querySelector('.locked-content');
-          
           const photoPreview = document.createElement('img');
           photoPreview.src = e.target.result;
           photoPreview.style.width = '100%';
@@ -697,35 +707,43 @@
           photoPreview.style.border = '1px solid var(--gold-light)';
           lockedContent.appendChild(photoPreview);
 
-          // Add Directions Button if map URL exists for current stop
-          if (stopDetails[currentId] && stopDetails[currentId].mapUrl) {
-            const mapBtn = document.createElement('a');
-            mapBtn.href = stopDetails[currentId].mapUrl;
-            mapBtn.target = '_blank';
-            mapBtn.innerText = '📍 Open Directions in Google Maps';
-            mapBtn.style.display = 'inline-block';
-            mapBtn.style.marginTop = '12px';
-            mapBtn.style.color = 'var(--gold)';
-            mapBtn.style.fontWeight = '600';
-            mapBtn.style.textDecoration = 'none';
-            mapBtn.style.fontSize = '0.95rem';
-            lockedContent.appendChild(mapBtn);
-          }
-
-          // 5. Reveal & activate the NEXT stop card
+          // 5. Reveal & activate the NEXT stop card WITH its Google Maps navigation button
           if (nextId && stopDetails[nextId]) {
             const nextCard = document.getElementById(nextId);
             nextCard.classList.remove('hidden-stop');
             
-            // Swap in the real time & title
+            // Update Headers
             document.getElementById('time-' + nextId).innerText = stopDetails[nextId].time;
             document.getElementById('title-' + nextId).innerText = stopDetails[nextId].title;
             
             const nextStatus = document.getElementById('status-' + nextId);
-            nextStatus.innerText = '✨ Next Destination Hint';
+            nextStatus.innerText = '✨ Next Destination Unlocked';
             nextStatus.style.color = 'var(--gold)';
             
-            // Scroll smoothly to next card
+            // Add Google Maps Navigation Button to the newly unlocked card
+            const nextLockedContent = nextCard.querySelector('.locked-content');
+            
+            // Remove existing map button if re-running
+            const existingBtn = nextLockedContent.querySelector('.map-btn');
+            if (existingBtn) existingBtn.remove();
+
+            const mapBtn = document.createElement('a');
+            mapBtn.className = 'map-btn';
+            mapBtn.href = stopDetails[nextId].mapUrl;
+            mapBtn.target = '_blank';
+            mapBtn.innerText = '🗺️ Navigate Here in Google Maps';
+            mapBtn.style.display = 'inline-block';
+            mapBtn.style.marginTop = '14px';
+            mapBtn.style.padding = '10px 18px';
+            mapBtn.style.background = 'var(--navy)';
+            mapBtn.style.color = '#ffffff';
+            mapBtn.style.borderRadius = '20px';
+            mapBtn.style.fontWeight = '600';
+            mapBtn.style.textDecoration = 'none';
+            mapBtn.style.fontSize = '0.9rem';
+            nextLockedContent.appendChild(mapBtn);
+
+            // Smooth scroll to newly revealed card
             setTimeout(() => {
               nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
@@ -735,38 +753,34 @@
         reader.readAsDataURL(file);
       }
     }
-    function resetTrip() {
-  if (confirm("Reset all uploaded photos and re-lock all destinations for trip launch?")) {
-    // 1. Clear Photo Gallery
-    document.getElementById('photo-gallery').innerHTML = '';
 
-    // 2. Loop through all stops and re-hide them
-    for (let i = 1; i <= 11; i++) {
-      const card = document.getElementById('stop' + i);
-      if (card) {
-        card.classList.add('hidden-stop');
-        card.classList.remove('unlocked');
-        
-        // Reset Text Headers
-        document.getElementById('time-stop' + i).innerText = '???';
-        document.getElementById('title-stop' + i).innerText = 'Mystery Destination #' + i;
-        document.getElementById('status-stop' + i).innerText = '🔒 Locked';
-        document.getElementById('status-stop' + i).style.color = 'var(--muted)';
-        
-        // Remove uploaded photo previews inside cards
-        const uploadedImgs = card.querySelectorAll('.locked-content img, .locked-content a');
-        uploadedImgs.forEach(el => el.remove());
+    // Reset Function for Pre-Trip Testing
+    function resetTrip() {
+      if (confirm("Reset all uploaded photos and re-lock all destinations for trip launch?")) {
+        document.getElementById('photo-gallery').innerHTML = '';
+
+        for (let i = 1; i <= 11; i++) {
+          const card = document.getElementById('stop' + i);
+          if (card) {
+            card.classList.add('hidden-stop');
+            card.classList.remove('unlocked');
+            
+            document.getElementById('time-stop' + i).innerText = '???';
+            document.getElementById('title-stop' + i).innerText = 'Mystery Destination #' + i;
+            document.getElementById('status-stop' + i).innerText = '🔒 Locked';
+            document.getElementById('status-stop' + i).style.color = 'var(--muted)';
+            
+            const uploadedImgs = card.querySelectorAll('.locked-content img, .locked-content .map-btn');
+            uploadedImgs.forEach(el => el.remove());
+          }
+        }
+
+        const startCard = document.getElementById('stop0');
+        startCard.classList.remove('unlocked');
+        const startImgs = startCard.querySelectorAll('.locked-content img');
+        startImgs.forEach(el => el.remove());
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
-
-    // 3. Reset Start 0
-    const startCard = document.getElementById('stop0');
-    startCard.classList.remove('unlocked');
-    const startImgs = startCard.querySelectorAll('.locked-content img');
-    startImgs.forEach(el => el.remove());
-
-    // 4. Scroll to Top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
   </script>
