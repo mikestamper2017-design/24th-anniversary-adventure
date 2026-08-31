@@ -800,18 +800,18 @@ function checkGalleryCount() {
 // Call checkGalleryCount inside unlockStop() right after gallery.appendChild(img);
 // checkGalleryCount();
 
-function exportInstagramStory() {
+async function exportInstagramStory() {
   const canvas = document.getElementById('story-canvas');
   const ctx = canvas.getContext('2d');
   const photos = Array.from(document.querySelectorAll('#photo-gallery img'));
 
   if (photos.length === 0) return;
 
-  // 1. Background Fill
-  ctx.fillStyle = '#0f172a'; // Navy background
+  // 1. Canvas Setup & Background
+  ctx.fillStyle = '#0f172a';
   ctx.fillRect(0, 0, 1080, 1920);
 
-  // 2. Decorative Gold Border
+  // 2. Gold Decorative Border
   ctx.strokeStyle = '#c5a059';
   ctx.lineWidth = 12;
   ctx.strokeRect(40, 40, 1000, 1840);
@@ -824,9 +824,9 @@ function exportInstagramStory() {
 
   ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 56px sans-serif';
-  ctx.fillText("Mike & Leanne's Mystery Tour", 540, 220);
+  ctx.fillText("Mike & Leanne's Anniversary Mystery Tour", 540, 220);
 
-  // 4. Draw Up to 4 Recent Photos in a Grid
+  // 4. Grid Photo Placement
   const displayPhotos = photos.slice(-4);
   const gridPositions = [
     { x: 80, y: 300, w: 440, h: 580 },
@@ -842,21 +842,37 @@ function exportInstagramStory() {
     imageObj.crossOrigin = 'anonymous';
     imageObj.src = img.src;
 
-    imageObj.onload = () => {
+    imageObj.onload = async () => {
       ctx.drawImage(imageObj, pos.x, pos.y, pos.w, pos.h);
       loaded++;
 
       if (loaded === displayPhotos.length) {
-        // 5. Footer Watermark
+        // Footer Text
         ctx.fillStyle = '#f4ece1';
         ctx.font = 'italic 38px serif';
         ctx.fillText('✨ 24 Years of Adventures Together ✨', 540, 1720);
 
-        // 6. Trigger Download / Save Image
-        const link = document.createElement('a');
-        link.download = 'Anniversary-Story.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+        // Convert canvas to image Blob for native sharing
+        canvas.toBlob(async (blob) => {
+          const file = new File([blob], 'Anniversary-Story.png', { type: 'image/png' });
+
+          // Try native device share sheet (iPhone / Android)
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+              await navigator.share({
+                files: [file],
+                title: '24th Anniversary Mystery Tour',
+                text: 'Celebrating 24 years together!'
+              });
+            } catch (err) {
+              console.log('Share canceled or failed', err);
+            }
+          } else {
+            // Fallback for desktop: Open generated image in new tab so user can right-click/save
+            const imageUrl = URL.createObjectURL(blob);
+            window.open(imageUrl, '_blank');
+          }
+        }, 'image/png');
       }
     };
   });
