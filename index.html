@@ -29,7 +29,7 @@
     h1 {
       color: var(--primary);
       margin-bottom: 6px;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
     }
     .subtitle {
       color: #64748b;
@@ -90,9 +90,7 @@
       border: 1px dashed #cbd5e1;
       text-align: center;
     }
-    input[type="file"] {
-      display: none;
-    }
+    input[type="file"] { display: none; }
     .upload-btn {
       background: var(--accent);
       color: white;
@@ -141,21 +139,45 @@
 
   <header>
     <h1>Mike & Leanne's 24th Anniversary Adventure 🥂</h1>
-    <p class="subtitle">Snap & upload a photo at each stop to reveal where we are headed next!</p>
+    <p class="subtitle">Upload a photo at each stop to reveal where we are headed next!</p>
   </header>
 
   <div class="timeline">
 
-    <!-- DAY 1 -->
-    <div class="day-header">Saturday, Sept 5: Coastal Drive & Lake Erie</div>
+    <!-- STARTING TRIGGER -->
+    <div class="day-header">Saturday, Sept 5: College Move-In & Coastal Drive</div>
+
+    <!-- Start 0: Fanshawe Trigger -->
+    <div class="card unlocked" id="stop0">
+      <div class="card-header">
+        <span class="time-tag">Sat Morning / Afternoon</span>
+        <span class="status-icon" style="color:#16a34a">🎓 Adventure Launch</span>
+      </div>
+      <h3>Start Here: Fanshawe College Move-In</h3>
+      <p>Wish your son a great semester! Snap a photo on campus together to officially unlock Stop 1 of your anniversary getaway!</p>
+      <div class="upload-section" style="display:block;">
+        <label class="upload-btn" for="file-stop0">📸 Upload Fanshawe Photo to Launch</label>
+        <input type="file" id="file-stop0" accept="image/*" onchange="unlockStop('stop0', 'stop1', this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>🎉 Anniversary Trip Activated!</strong> Time to head south toward the lake...</p>
+      </div>
+    </div>
 
     <!-- Stop 1 -->
-    <div class="card unlocked" id="stop1">
+    <div class="card" id="stop1">
       <div class="card-header">
         <span class="time-tag">Sat 3:00 PM</span>
-        <span class="status-icon" style="color:#16a34a">🔓 Unlocked</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
       </div>
-      <h3>Stop 1: Departure & Pier Promenade</h3>
+      <h3>Stop 1: Pier Promenade & Harbour View</h3>
+      <div class="hint-box">
+        "Heading south from London to stretch our legs where the pier meets Lake Erie..."
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop1">📸 Upload Photo at Stop 1</label>
+        <input type="file" id="file-stop1" accept="image/*" onchange="unlockStop('stop1', 'stop2', this)">
+      </div>
       <div class="locked-content">
         <p><strong>Destination:</strong> Port Stanley Beach & Pier</p>
         <p>Stretch your legs, watch the boats pass the lighthouse, and grab a cold drink with your first view over Lake Erie!</p>
@@ -173,12 +195,12 @@
         "High clay cliffs overlooking the open lake... snap a quick photo of the vast blue water to unlock our overnight stay!"
       </div>
       <div class="upload-section">
-        <label class="upload-btn" for="file-stop2">📸 Upload Photo at Stop 1</label>
+        <label class="upload-btn" for="file-stop2">📸 Upload Photo at Stop 2</label>
         <input type="file" id="file-stop2" accept="image/*" onchange="unlockStop('stop2', 'stop3', this)">
       </div>
       <div class="locked-content">
         <p><strong>Destination:</strong> Port Rowan & Long Point Bay Lookout</p>
-        <p>A beautiful scenic overlook right along Elgin Road 42 as we curve toward Port Dover.</p>
+        <p>A scenic overlook right along Elgin Road 42 as we curve toward Port Dover.</p>
       </div>
     </div>
 
@@ -193,7 +215,7 @@
         "Named after a Saint and a King—this luxury 4-suite micro-stay is our cozy home for the night..."
       </div>
       <div class="upload-section">
-        <label class="upload-btn" for="file-stop3">📸 Upload Photo at Stop 2</label>
+        <label class="upload-btn" for="file-stop3">📸 Upload Photo at Check-In</label>
         <input type="file" id="file-stop3" accept="image/*" onchange="unlockStop('stop3', 'stop4', this)">
       </div>
       <div class="locked-content">
@@ -213,7 +235,7 @@
         "Fresh Lake Erie perch, cold drinks on the patio, and our toes right next to the sand..."
       </div>
       <div class="upload-section">
-        <label class="upload-btn" for="file-stop4">📸 Upload Photo at Check-In</label>
+        <label class="upload-btn" for="file-stop4">📸 Upload Dinner Photo</label>
         <input type="file" id="file-stop4" accept="image/*" onchange="unlockStop('stop4', null, this)">
       </div>
       <div class="locked-content">
@@ -236,7 +258,7 @@
         "Freshly baked French croissants followed by a stroll to view local Canadian landscapes and woodwork..."
       </div>
       <div class="upload-section">
-        <label class="upload-btn" for="file-stop5">📸 Upload Sunset/Dinner Photo</label>
+        <label class="upload-btn" for="file-stop5">📸 Upload Morning Photo</label>
         <input type="file" id="file-stop5" accept="image/*" onchange="unlockStop('stop5', 'stop6', this)">
       </div>
       <div class="locked-content">
@@ -256,7 +278,7 @@
         "Miles of quiet, wild sand beach along one of Ontario's most famous natural sand spits..."
       </div>
       <div class="upload-section">
-        <label class="upload-btn" for="file-stop6">📸 Upload Morning Gallery Photo</label>
+        <label class="upload-btn" for="file-stop6">📸 Upload Beach Walk Photo</label>
         <input type="file" id="file-stop6" accept="image/*" onchange="unlockStop('stop6', 'stop7', this)">
       </div>
       <div class="locked-content">
@@ -276,7 +298,7 @@
         "A shaded boardwalk path leading to a 21-metre ribbon waterfall tucked deep into the woods..."
       </div>
       <div class="upload-section">
-        <label class="upload-btn" for="file-stop7">📸 Upload Beach Walk Photo</label>
+        <label class="upload-btn" for="file-stop7">📸 Upload Waterfall Photo</label>
         <input type="file" id="file-stop7" accept="image/*" onchange="unlockStop('stop7', 'stop8', this)">
       </div>
       <div class="locked-content">
@@ -296,7 +318,7 @@
         "An 18th-century stone mill where we dine behind glass walls suspended directly over a rushing waterfall..."
       </div>
       <div class="upload-section">
-        <label class="upload-btn" for="file-stop8">📸 Upload Waterfall Photo</label>
+        <label class="upload-btn" for="file-stop8">📸 Upload Ancaster Mill Photo</label>
         <input type="file" id="file-stop8" accept="image/*" onchange="unlockStop('stop8', null, this)">
       </div>
       <div class="locked-content">
@@ -319,7 +341,7 @@
         "Heading north toward Caledon—a wooden suspension bridge overlooking a rushing river gorge and waterfall..."
       </div>
       <div class="upload-section">
-        <label class="upload-btn" for="file-stop9">📸 Upload Ancaster Mill Photo</label>
+        <label class="upload-btn" for="file-stop9">📸 Upload Belfountain Photo</label>
         <input type="file" id="file-stop9" accept="image/*" onchange="unlockStop('stop9', 'stop10', this)">
       </div>
       <div class="locked-content">
@@ -339,7 +361,7 @@
         "A quaint, historic 1800s country general store along winding rolling hills..."
       </div>
       <div class="upload-section">
-        <label class="upload-btn" for="file-stop10">📸 Upload Belfountain Photo</label>
+        <label class="upload-btn" for="file-stop10">📸 Upload Hockley Valley Photo</label>
         <input type="file" id="file-stop10" accept="image/*" onchange="unlockStop('stop10', 'stop11', this)">
       </div>
       <div class="locked-content">
@@ -359,12 +381,12 @@
         "Our final stop before home—a charming 19th-century main street with local coffee shops and ice cream..."
       </div>
       <div class="upload-section">
-        <label class="upload-btn" for="file-stop11">📸 Upload Hockley Valley Photo</label>
+        <label class="upload-btn" for="file-stop11">📸 Upload Newmarket Photo</label>
         <input type="file" id="file-stop11" accept="image/*" onchange="unlockStop('stop11', null, this)">
       </div>
       <div class="locked-content">
         <p><strong>Destination:</strong> Main Street South, Newmarket</p>
-        <p>Enjoy a leisurely afternoon coffee or ice cream along Fairy Lake and Main Street before the final 35-minute drive home to Uxbridge!</p>
+        <p>Enjoy a leisurely afternoon coffee or ice cream along Fairy Lake and Main Street before the final drive home to Uxbridge!</p>
       </div>
     </div>
 
@@ -373,7 +395,7 @@
   <!-- GALLERY -->
   <div class="gallery-container">
     <h3 style="margin: 0; color: var(--primary);">📷 24th Anniversary Photo Album</h3>
-    <p style="color: #64748b; font-size: 0.85rem; margin-top: 4px;">Your uploaded memories will appear here throughout the trip!</p>
+    <p style="color: #64748b; font-size: 0.85rem; margin-top: 4px;">Your uploaded memories will accumulate here throughout the trip!</p>
     <div class="gallery-grid" id="photo-gallery"></div>
   </div>
 
@@ -384,23 +406,31 @@
         const reader = new FileReader();
 
         reader.onload = function(e) {
-          // 1. Add image to album gallery
+          // 1. Add image to overall album gallery
           const gallery = document.getElementById('photo-gallery');
           const img = document.createElement('img');
           img.src = e.target.result;
           gallery.appendChild(img);
 
-          // 2. Unlock current card
+          // 2. Mark current card as completed / unlocked
           const card = document.getElementById(currentId);
           card.classList.add('unlocked');
-          card.querySelector('.status-icon').innerText = '🔓 Unlocked';
+          card.querySelector('.status-icon').innerText = '🔓 Completed';
           card.querySelector('.status-icon').style.color = '#16a34a';
 
-          // 3. Optional: display uploaded photo thumbnail in card
+          // 3. Unlock NEXT target card if specified
+          if (nextId) {
+            const nextCard = document.getElementById(nextId);
+            nextCard.classList.add('unlocked');
+            nextCard.querySelector('.status-icon').innerText = '🔓 Unlocked';
+            nextCard.querySelector('.status-icon').style.color = '#16a34a';
+          }
+
+          // 4. Add uploaded photo preview directly inside current card
           const photoPreview = document.createElement('img');
           photoPreview.src = e.target.result;
           photoPreview.style.width = '100%';
-          photoPreview.style.maxHeight = '200px';
+          photoPreview.style.maxHeight = '220px';
           photoPreview.style.objectFit = 'cover';
           photoPreview.style.borderRadius = '8px';
           photoPreview.style.marginTop = '10px';
