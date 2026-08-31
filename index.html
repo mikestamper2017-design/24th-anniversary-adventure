@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mike & Leanne's 24th Anniversary Adventure</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --accent: #e11d48;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: #334155;
+      margin: 0;
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+      max-width: 500px;
+    }
+    h1 {
+      color: var(--primary);
+      margin-bottom: 6px;
+      font-size: 1.6rem;
+    }
+    .subtitle {
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+    .timeline {
+      width: 100%;
+      max-width: 500px;
+    }
+    .day-header {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 25px 0 10px 0;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #cbd5e1;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .time-tag {
+      background: var(--primary);
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-icon {
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+    .hint-box {
+      background: #f1f5f9;
+      border-left: 4px solid var(--accent);
+      padding: 10px 12px;
+      margin: 12px 0;
+      border-radius: 0 6px 6px 0;
+      font-style: italic;
+      font-size: 0.92rem;
+    }
+    .upload-section {
+      margin-top: 12px;
+      background: #fafafa;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px dashed #cbd5e1;
+      text-align: center;
+    }
+    input[type="file"] {
+      display: none;
+    }
+    .upload-btn {
+      background: var(--accent);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 0.9rem;
+    }
+    .locked-content {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+    }
+    .card.unlocked .locked-content { display: block; }
+    .card.unlocked .upload-section { display: none; }
+    .card.unlocked .hint-box { display: none; }
+    
+    /* Gallery Styling */
+    .gallery-container {
+      width: 100%;
+      max-width: 500px;
+      margin-top: 30px;
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat( auto-fill, minmax(100px, 1fr) );
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Mike & Leanne's 24th Anniversary Adventure 🥂</h1>
+    <p class="subtitle">Snap & upload a photo at each stop to reveal where we are headed next!</p>
+  </header>
+
+  <div class="timeline">
+
+    <!-- DAY 1 -->
+    <div class="day-header">Saturday, Sept 5: Coastal Drive & Lake Erie</div>
+
+    <!-- Stop 1 -->
+    <div class="card unlocked" id="stop1">
+      <div class="card-header">
+        <span class="time-tag">Sat 3:00 PM</span>
+        <span class="status-icon" style="color:#16a34a">🔓 Unlocked</span>
+      </div>
+      <h3>Stop 1: Departure & Pier Promenade</h3>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> Port Stanley Beach & Pier</p>
+        <p>Stretch your legs, watch the boats pass the lighthouse, and grab a cold drink with your first view over Lake Erie!</p>
+      </div>
+    </div>
+
+    <!-- Stop 2 -->
+    <div class="card" id="stop2">
+      <div class="card-header">
+        <span class="time-tag">Sat 4:35 PM</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
+      </div>
+      <h3>Stop 2: Coastal Clay Bluffs</h3>
+      <div class="hint-box">
+        "High clay cliffs overlooking the open lake... snap a quick photo of the vast blue water to unlock our overnight stay!"
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop2">📸 Upload Photo at Stop 1</label>
+        <input type="file" id="file-stop2" accept="image/*" onchange="unlockStop('stop2', 'stop3', this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> Port Rowan & Long Point Bay Lookout</p>
+        <p>A beautiful scenic overlook right along Elgin Road 42 as we curve toward Port Dover.</p>
+      </div>
+    </div>
+
+    <!-- Stop 3 -->
+    <div class="card" id="stop3">
+      <div class="card-header">
+        <span class="time-tag">Sat 5:35 PM</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
+      </div>
+      <h3>Stop 3: Our Port Dover Retreat</h3>
+      <div class="hint-box">
+        "Named after a Saint and a King—this luxury 4-suite micro-stay is our cozy home for the night..."
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop3">📸 Upload Photo at Stop 2</label>
+        <input type="file" id="file-stop3" accept="image/*" onchange="unlockStop('stop3', 'stop4', this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> The Dover George (Port Dover)</p>
+        <p>Check in, unpack, and relax in our boutique room before heading out for dinner!</p>
+      </div>
+    </div>
+
+    <!-- Stop 4 -->
+    <div class="card" id="stop4">
+      <div class="card-header">
+        <span class="time-tag">Sat 7:00 PM</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
+      </div>
+      <h3>Stop 4: Sunset Waterfront Dinner</h3>
+      <div class="hint-box">
+        "Fresh Lake Erie perch, cold drinks on the patio, and our toes right next to the sand..."
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop4">📸 Upload Photo at Check-In</label>
+        <input type="file" id="file-stop4" accept="image/*" onchange="unlockStop('stop4', null, this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> The Beach House Restaurant</p>
+        <p>Relax and enjoy dinner directly overlooking the water as the sun sets over the lake.</p>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="day-header">Sunday, Sept 6: Beaches, Fine Art & Escarpment Falls</div>
+
+    <!-- Stop 5 -->
+    <div class="card" id="stop5">
+      <div class="card-header">
+        <span class="time-tag">Sun 9:00 AM</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
+      </div>
+      <h3>Stop 5: Morning Espresso & Galleries</h3>
+      <div class="hint-box">
+        "Freshly baked French croissants followed by a stroll to view local Canadian landscapes and woodwork..."
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop5">📸 Upload Sunset/Dinner Photo</label>
+        <input type="file" id="file-stop5" accept="image/*" onchange="unlockStop('stop5', 'stop6', this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> Urban Parisian Patisserie & Woodhouse Gallery</p>
+        <p>Enjoy morning pastries followed by a casual fine art stroll down Main Street.</p>
+      </div>
+    </div>
+
+    <!-- Stop 6 -->
+    <div class="card" id="stop6">
+      <div class="card-header">
+        <span class="time-tag">Sun 11:30 AM</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
+      </div>
+      <h3>Stop 6: UNESCO Sand Spit Beach Walk</h3>
+      <div class="hint-box">
+        "Miles of quiet, wild sand beach along one of Ontario's most famous natural sand spits..."
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop6">📸 Upload Morning Gallery Photo</label>
+        <input type="file" id="file-stop6" accept="image/*" onchange="unlockStop('stop6', 'stop7', this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> Long Point Provincial Park Beach</p>
+        <p>Take a long, peaceful shoreline walk before we begin our drive north toward Escarpment country!</p>
+      </div>
+    </div>
+
+    <!-- Stop 7 -->
+    <div class="card" id="stop7">
+      <div class="card-header">
+        <span class="time-tag">Sun 3:30 PM</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
+      </div>
+      <h3>Stop 7: Forest Ravine Waterfalls</h3>
+      <div class="hint-box">
+        "A shaded boardwalk path leading to a 21-metre ribbon waterfall tucked deep into the woods..."
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop7">📸 Upload Beach Walk Photo</label>
+        <input type="file" id="file-stop7" accept="image/*" onchange="unlockStop('stop7', 'stop8', this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> Tiffany Falls & Sherman Falls (Ancaster)</p>
+        <p>Walk the boardwalk trails along the Bruce Trail to see two of the Escarpment's most famous waterfalls.</p>
+      </div>
+    </div>
+
+    <!-- Stop 8 -->
+    <div class="card" id="stop8">
+      <div class="card-header">
+        <span class="time-tag">Sun 7:00 PM</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
+      </div>
+      <h3>Stop 8: Anniversary Dinner Over the Water</h3>
+      <div class="hint-box">
+        "An 18th-century stone mill where we dine behind glass walls suspended directly over a rushing waterfall..."
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop8">📸 Upload Waterfall Photo</label>
+        <input type="file" id="file-stop8" accept="image/*" onchange="unlockStop('stop8', null, this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> Ancaster Mill</p>
+        <p>Celebratory anniversary fine dining over the waterfall, followed by overnight stay at Courtyard Marriott Hamilton!</p>
+      </div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="day-header">Monday, Sept 7: The Scenic Country Drive Home</div>
+
+    <!-- Stop 9 -->
+    <div class="card" id="stop9">
+      <div class="card-header">
+        <span class="time-tag">Mon 10:30 AM</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
+      </div>
+      <h3>Stop 9: Suspension Bridge & Escarpment Gorge</h3>
+      <div class="hint-box">
+        "Heading north toward Caledon—a wooden suspension bridge overlooking a rushing river gorge and waterfall..."
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop9">📸 Upload Ancaster Mill Photo</label>
+        <input type="file" id="file-stop9" accept="image/*" onchange="unlockStop('stop9', 'stop10', this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> Belfountain Conservation Area</p>
+        <p>Walk across the suspension bridge, view Belfountain Falls, and stroll around the heritage pond.</p>
+      </div>
+    </div>
+
+    <!-- Stop 10 -->
+    <div class="card" id="stop10">
+      <div class="card-header">
+        <span class="time-tag">Mon 12:30 PM</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
+      </div>
+      <h3>Stop 10: Hockley Valley General Store</h3>
+      <div class="hint-box">
+        "A quaint, historic 1800s country general store along winding rolling hills..."
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop10">📸 Upload Belfountain Photo</label>
+        <input type="file" id="file-stop10" accept="image/*" onchange="unlockStop('stop10', 'stop11', this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> Hockley General Store & Bakery</p>
+        <p>Grab gourmet sandwiches, artisan coffee, and sweet treats in the heart of Hockley Valley.</p>
+      </div>
+    </div>
+
+    <!-- Stop 11 -->
+    <div class="card" id="stop11">
+      <div class="card-header">
+        <span class="time-tag">Mon 2:30 PM</span>
+        <span class="status-icon" style="color:#dc2626">🔒 Locked</span>
+      </div>
+      <h3>Stop 11: Historic Main Street Stroll</h3>
+      <div class="hint-box">
+        "Our final stop before home—a charming 19th-century main street with local coffee shops and ice cream..."
+      </div>
+      <div class="upload-section">
+        <label class="upload-btn" for="file-stop11">📸 Upload Hockley Valley Photo</label>
+        <input type="file" id="file-stop11" accept="image/*" onchange="unlockStop('stop11', null, this)">
+      </div>
+      <div class="locked-content">
+        <p><strong>Destination:</strong> Main Street South, Newmarket</p>
+        <p>Enjoy a leisurely afternoon coffee or ice cream along Fairy Lake and Main Street before the final 35-minute drive home to Uxbridge!</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GALLERY -->
+  <div class="gallery-container">
+    <h3 style="margin: 0; color: var(--primary);">📷 24th Anniversary Photo Album</h3>
+    <p style="color: #64748b; font-size: 0.85rem; margin-top: 4px;">Your uploaded memories will appear here throughout the trip!</p>
+    <div class="gallery-grid" id="photo-gallery"></div>
+  </div>
+
+  <script>
+    function unlockStop(currentId, nextId, inputElement) {
+      if (inputElement.files && inputElement.files[0]) {
+        const file = inputElement.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          // 1. Add image to album gallery
+          const gallery = document.getElementById('photo-gallery');
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          gallery.appendChild(img);
+
+          // 2. Unlock current card
+          const card = document.getElementById(currentId);
+          card.classList.add('unlocked');
+          card.querySelector('.status-icon').innerText = '🔓 Unlocked';
+          card.querySelector('.status-icon').style.color = '#16a34a';
+
+          // 3. Optional: display uploaded photo thumbnail in card
+          const photoPreview = document.createElement('img');
+          photoPreview.src = e.target.result;
+          photoPreview.style.width = '100%';
+          photoPreview.style.maxHeight = '200px';
+          photoPreview.style.objectFit = 'cover';
+          photoPreview.style.borderRadius = '8px';
+          photoPreview.style.marginTop = '10px';
+          card.querySelector('.locked-content').appendChild(photoPreview);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
+</body>
+</html>
