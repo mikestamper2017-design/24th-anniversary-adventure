@@ -682,16 +682,27 @@ function unlockStop(currentId, nextId, inputElement) {
     }
 
     // 4. Attach photo preview inside current card content
-    const lockedContent = currentCard.querySelector('.locked-content');
-    const photoPreview = document.createElement('img');
-    photoPreview.src = imageObjectUrl;
-    photoPreview.style.width = '100%';
-    photoPreview.style.maxHeight = '240px';
-    photoPreview.style.objectFit = 'cover';
-    photoPreview.style.borderRadius = '10px';
-    photoPreview.style.marginTop = '14px';
-    photoPreview.style.border = '1px solid var(--gold-light)';
-    lockedContent.appendChild(photoPreview);
+const lockedContent = currentCard.querySelector('.locked-content');
+const talkBox = currentCard.querySelector('.talk-box'); // <-- Get reference to the chat box
+
+const photoPreview = document.createElement('img');
+photoPreview.src = imageObjectUrl;
+photoPreview.style.width = '100%';
+photoPreview.style.maxHeight = '240px';
+photoPreview.style.objectFit = 'cover';
+photoPreview.style.borderRadius = '10px';
+photoPreview.style.marginTop = '14px';
+photoPreview.style.border = '1px solid var(--gold-light)';
+
+// Change this line:
+// lockedContent.appendChild(photoPreview);
+
+// To this:
+if (talkBox) {
+  lockedContent.insertBefore(photoPreview, talkBox);
+} else {
+  lockedContent.appendChild(photoPreview);
+}
 
     // 5. Reveal next stop card and attach navigation button directly to the card body
     if (nextId && stopDetails[nextId]) {
