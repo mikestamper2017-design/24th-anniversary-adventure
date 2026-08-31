@@ -574,12 +574,161 @@
     <div class="gallery-grid" id="photo-gallery"></div>
   </div>
 
+  <div style="width: 100%; max-width: 520px; margin-bottom: 24px;">
+    <iframe 
+      style="border-radius:12px" 
+      src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4p1vB8MeoN6" 
+      width="100%" 
+      height="152" 
+      frameBorder="0" 
+      allowfullscreen="" 
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
   <script>
+    // Real Details & Direct Google Maps Links to swap upon unlocking
     const stopDetails = {
-      stop1: { time: "Sat 3:00 PM", title: "Stop 1: Pier Promenade & Harbour View" },
-      stop2: { time: "Sat 4:35 PM", title: "Stop 2: Coastal Clay Bluffs" },
-      stop3: { time: "Sat 5:35 PM", title: "Stop 3: Our Port Dover Retreat" },
-      stop4: { time: "Sat 7:00 PM", title: "Stop 4: Sunset Waterfront Dinner" },
-      stop5: { time: "Sun 9:00 AM", title: "Stop 5: Espresso & Fine Art Stroll" },
-      stop6: { time: "Sun 11:30 AM", title: "Stop 6: Wild Beach Dunes Walk" },
-      stop7: { time:
+      stop1: { 
+        time: "Sat 3:00 PM", 
+        title: "Stop 1: Pier Promenade & Harbour View",
+        mapUrl: "https://maps.google.com/?q=Port+Stanley+Beach+Ontario"
+      },
+      stop2: { 
+        time: "Sat 4:35 PM", 
+        title: "Stop 2: Coastal Clay Bluffs",
+        mapUrl: "https://maps.google.com/?q=Port+Rowan+Lookout+Ontario"
+      },
+      stop3: { 
+        time: "Sat 5:35 PM", 
+        title: "Stop 3: Our Port Dover Retreat",
+        mapUrl: "https://maps.google.com/?q=The+Dover+George+Port+Dover"
+      },
+      stop4: { 
+        time: "Sat 7:00 PM", 
+        title: "Stop 4: Sunset Waterfront Dinner",
+        mapUrl: "https://maps.google.com/?q=The+Beach+House+Port+Dover"
+      },
+      stop5: { 
+        time: "Sun 9:00 AM", 
+        title: "Stop 5: Espresso & Fine Art Stroll",
+        mapUrl: "https://maps.google.com/?q=Urban+Parisian+Port+Dover"
+      },
+      stop6: { 
+        time: "Sun 11:30 AM", 
+        title: "Stop 6: Wild Beach Dunes Walk",
+        mapUrl: "https://maps.google.com/?q=Long+Point+Provincial+Park"
+      },
+      stop7: { 
+        time: "Sun 3:30 PM", 
+        title: "Stop 7: Forest Ravine Waterfalls",
+        mapUrl: "https://maps.google.com/?q=Tiffany+Falls+Conservation+Area"
+      },
+      stop8: { 
+        time: "Sun 7:00 PM", 
+        title: "Stop 8: Anniversary Dinner Over the Water",
+        mapUrl: "https://maps.google.com/?q=Ancaster+Mill+Ontario"
+      },
+      stop9: { 
+        time: "Mon 10:30 AM", 
+        title: "Stop 9: Suspension Bridge & Gorge",
+        mapUrl: "https://maps.google.com/?q=Belfountain+Conservation+Area"
+      },
+      stop10: { 
+        time: "Mon 12:30 PM", 
+        title: "Stop 10: Hockley Valley Bakery Stop",
+        mapUrl: "https://maps.google.com/?q=Hockley+General+Store"
+      },
+      stop11: { 
+        time: "Mon 2:30 PM", 
+        title: "Stop 11: Historic Main Street Stroll",
+        mapUrl: "https://maps.google.com/?q=Main+Street+South+Newmarket"
+      }
+    };
+
+    function unlockStop(currentId, nextId, inputElement) {
+      if (inputElement.files && inputElement.files[0]) {
+        const file = inputElement.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          // 1. Trigger celebratory gold confetti burst
+          if (typeof confetti === 'function') {
+            confetti({
+              particleCount: 80,
+              spread: 60,
+              origin: { y: 0.6 },
+              colors: ['#c5a059', '#0f172a', '#ffffff']
+            });
+          }
+
+          // 2. Add uploaded photo to album gallery
+          const gallery = document.getElementById('photo-gallery');
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          gallery.appendChild(img);
+
+          // 3. Mark current card as completed
+          const currentCard = document.getElementById(currentId);
+          currentCard.classList.add('unlocked');
+          const statusIcon = currentCard.querySelector('.status-icon');
+          if (statusIcon) {
+            statusIcon.innerText = '✓ Completed';
+            statusIcon.style.color = 'var(--gold)';
+          }
+
+          // 4. Append image preview and Google Maps button into current card
+          const lockedContent = currentCard.querySelector('.locked-content');
+          
+          const photoPreview = document.createElement('img');
+          photoPreview.src = e.target.result;
+          photoPreview.style.width = '100%';
+          photoPreview.style.maxHeight = '240px';
+          photoPreview.style.objectFit = 'cover';
+          photoPreview.style.borderRadius = '10px';
+          photoPreview.style.marginTop = '14px';
+          photoPreview.style.border = '1px solid var(--gold-light)';
+          lockedContent.appendChild(photoPreview);
+
+          // Add Directions Button if map URL exists for current stop
+          if (stopDetails[currentId] && stopDetails[currentId].mapUrl) {
+            const mapBtn = document.createElement('a');
+            mapBtn.href = stopDetails[currentId].mapUrl;
+            mapBtn.target = '_blank';
+            mapBtn.innerText = '📍 Open Directions in Google Maps';
+            mapBtn.style.display = 'inline-block';
+            mapBtn.style.marginTop = '12px';
+            mapBtn.style.color = 'var(--gold)';
+            mapBtn.style.fontWeight = '600';
+            mapBtn.style.textDecoration = 'none';
+            mapBtn.style.fontSize = '0.95rem';
+            lockedContent.appendChild(mapBtn);
+          }
+
+          // 5. Reveal & activate the NEXT stop card
+          if (nextId && stopDetails[nextId]) {
+            const nextCard = document.getElementById(nextId);
+            nextCard.classList.remove('hidden-stop');
+            
+            // Swap in the real time & title
+            document.getElementById('time-' + nextId).innerText = stopDetails[nextId].time;
+            document.getElementById('title-' + nextId).innerText = stopDetails[nextId].title;
+            
+            const nextStatus = document.getElementById('status-' + nextId);
+            nextStatus.innerText = '✨ Next Destination Hint';
+            nextStatus.style.color = 'var(--gold)';
+            
+            // Scroll smoothly to next card
+            setTimeout(() => {
+              nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+          }
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
