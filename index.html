@@ -816,23 +816,25 @@ async function exportInstagramStory() {
   ctx.lineWidth = 12;
   ctx.strokeRect(40, 40, 1000, 1840);
 
-  // 3. Header Text
+  // 3. Header Text (Adjusted & Split for Mobile Screens)
   ctx.fillStyle = '#c5a059';
-  ctx.font = 'bold 36px sans-serif';
+  ctx.font = 'bold 32px sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('CELEBRATING 24 YEARS', 540, 140);
+  ctx.fillText('CELEBRATING 24 YEARS', 540, 130);
 
   ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 56px sans-serif';
-  ctx.fillText("Mike & Leanne's Anniversary Mystery Tour", 540, 220);
+  ctx.font = 'bold 46px sans-serif';
+  // Split into two balanced lines so it fits comfortably
+  ctx.fillText("Mike & Leanne's", 540, 195);
+  ctx.fillText("Anniversary Mystery Trip", 540, 250);
 
-  // 4. Grid Photo Placement
+  // 4. Grid Photo Placement (Slightly adjusted y-positions)
   const displayPhotos = photos.slice(-4);
   const gridPositions = [
-    { x: 80, y: 300, w: 440, h: 580 },
-    { x: 560, y: 300, w: 440, h: 580 },
-    { x: 80, y: 920, w: 440, h: 580 },
-    { x: 560, y: 920, w: 440, h: 580 }
+    { x: 80, y: 290, w: 440, h: 580 },
+    { x: 560, y: 290, w: 440, h: 580 },
+    { x: 80, y: 910, w: 440, h: 580 },
+    { x: 560, y: 910, w: 440, h: 580 }
   ];
 
   let loaded = 0;
