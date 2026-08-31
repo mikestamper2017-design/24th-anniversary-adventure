@@ -581,8 +581,14 @@
     <p style="color: var(--muted); font-size: 0.95rem; margin-top: 6px; text-align: center;">Our uploaded memories will collect here as the journey unfolds.</p>
     <div class="gallery-grid" id="photo-gallery"></div>
   </div>
-  
-<div style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
+  <div style="text-align: center; margin-top: 16px;">
+  <button id="export-story-btn" onclick="exportInstagramStory()" style="display: none; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; border: none; padding: 12px 22px; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);">
+    📸 Download Instagram Story Card
+  </button>
+</div>
+
+<!-- Hidden Canvas for rendering -->
+<canvas id="story-canvas" width="1080" height="1920" style="display: none;"></canvas><div style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
   <button onclick="resetTrip()" style="background: transparent; border: 1px solid var(--muted); color: var(--muted); padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; cursor: pointer;">
     🔄 Reset Trip for Launch
   </button>
@@ -680,6 +686,9 @@ function unlockStop(currentId, nextId, inputElement) {
     const img = document.createElement('img');
     img.src = imageObjectUrl;
     gallery.appendChild(img);
+    
+    // ADD THIS LINE HERE:
+    checkGalleryCount();
 
     // 3. Complete current stop card
     const currentCard = document.getElementById(currentId);
@@ -778,6 +787,79 @@ function resetTrip() {
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+}
+    // Show export button as soon as the first photo is uploaded
+function checkGalleryCount() {
+  const photos = document.querySelectorAll('#photo-gallery img');
+  const btn = document.getElementById('export-story-btn');
+  if (photos.length > 0 && btn) {
+    btn.style.display = 'inline-block';
+  }
+}
+
+// Call checkGalleryCount inside unlockStop() right after gallery.appendChild(img);
+// checkGalleryCount();
+
+function exportInstagramStory() {
+  const canvas = document.getElementById('story-canvas');
+  const ctx = canvas.getContext('2d');
+  const photos = Array.from(document.querySelectorAll('#photo-gallery img'));
+
+  if (photos.length === 0) return;
+
+  // 1. Background Fill
+  ctx.fillStyle = '#0f172a'; // Navy background
+  ctx.fillRect(0, 0, 1080, 1920);
+
+  // 2. Decorative Gold Border
+  ctx.strokeStyle = '#c5a059';
+  ctx.lineWidth = 12;
+  ctx.strokeRect(40, 40, 1000, 1840);
+
+  // 3. Header Text
+  ctx.fillStyle = '#c5a059';
+  ctx.font = 'bold 36px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('CELEBRATING 24 YEARS', 540, 140);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 56px sans-serif';
+  ctx.fillText("Mike & Leanne's Mystery Tour", 540, 220);
+
+  // 4. Draw Up to 4 Recent Photos in a Grid
+  const displayPhotos = photos.slice(-4);
+  const gridPositions = [
+    { x: 80, y: 300, w: 440, h: 580 },
+    { x: 560, y: 300, w: 440, h: 580 },
+    { x: 80, y: 920, w: 440, h: 580 },
+    { x: 560, y: 920, w: 440, h: 580 }
+  ];
+
+  let loaded = 0;
+  displayPhotos.forEach((img, i) => {
+    const pos = gridPositions[i];
+    const imageObj = new Image();
+    imageObj.crossOrigin = 'anonymous';
+    imageObj.src = img.src;
+
+    imageObj.onload = () => {
+      ctx.drawImage(imageObj, pos.x, pos.y, pos.w, pos.h);
+      loaded++;
+
+      if (loaded === displayPhotos.length) {
+        // 5. Footer Watermark
+        ctx.fillStyle = '#f4ece1';
+        ctx.font = 'italic 38px serif';
+        ctx.fillText('✨ 24 Years of Adventures Together ✨', 540, 1720);
+
+        // 6. Trigger Download / Save Image
+        const link = document.createElement('a');
+        link.download = 'Anniversary-Story.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }
+    };
+  });
 }
 </script>
 </body>
